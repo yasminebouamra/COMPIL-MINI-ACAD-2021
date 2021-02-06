@@ -12,7 +12,7 @@ STRING \"{CHAR}*\"
 OpCond [SUP|SUPE|EG|DIFF|INF|INFE]
 TailleTab \[{SNombre}*\]
 FIO [$|%|#|&]
-TIO \(\".\"(\|{FIO}*)*\)
+TIO \(\".*\"(\|{IDF})*\)
 %%
 "##" {printf("mc_import\t");}
 "PROCESS" {printf("lib_process\t");}
