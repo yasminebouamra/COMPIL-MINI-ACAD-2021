@@ -1,50 +1,63 @@
 %{
-#include "syntaxique.tab.h"
 int nblignes=1;
 %}
 SNombre [0-9]
-INTEGER [{SNombre}{SNombre}*|-{SNombre}{SNombre}*]
+INTEGER ([0-9]|\-[0-9])*
 FLOAT ({INTEGER}.{SNombre}+)
-CHAR {SNombre}*[A-Za-z]
-STRING ({CHAR}+)
-IDF [A-Z]({CHAR}*{SNombre}*)*
+IDF [A-Z]([A-Za-z]*{SNombre}*)*
+IDFTAB {IDF}{TailleTab}
+commentaire \/\*.*\*\/
+CHAR [A-Za-z0-9]
+STRING \"{CHAR}*\"
 OpCond [SUP|SUPE|EG|DIFF|INF|INFE]
-TailleTab {SNombre}
-commentaire \/\*{STRING}\*\/
+TailleTab \[{SNombre}*\]
 FIO [$|%|#|&]
-TIO ({STRING}{FIO}*)+
+TIO \(\".\"(\|{FIO}*)*\)
 %%
-"##" {return mc_import; printf("mc_import");}
-"PROCESS" {return lib_process; printf("lib_process");}
-"LOOP" {return lib_loop; printf("lib_loop");}
-"ARRAY" {return lib_array; printf("lib_array")}
-"PROGRAMME" {return mc_start; printf("mc_start");}
-"VAR" return {mc_decvar; printf("mc_decvar");}
-"EXECUT" {return mc_execut; printf("mc_execut")}
-"IF" {return mc_if; printf("mc_if");}
-"ELSE" {return mc_else; printf("mc_else");}
-"END_IF" {return mc_endif; printf("mc_endif");}
-"While" {return mc_while; printf("mc_while");}
-"READ" {return fonc_entree; printf("fonc_entree");}
-"WRITE" {return fonc_sortie; printf("fonc_sortie");}
-"(" {return mc_po; printf("mc_po");}
-")" {return mc_pf; printf("mc_pf");}
-"{" {return mc_ao; printf("mc_ao");}
-"}" {return mc_af; printf("mc_af");}
-"@" {return mc_adresse; printf("mc_adresse");}
-"SUP" {return mc_sup; printf("mc_sup");}
-"SUPE" {return mc_supe; printf("mc_supe");}
-"INF" {return mc_inf; printf("mc_inf");}
-"INFE" {return mc_infe; printf("mc_infe");}
-"DIFF" {return mc_diff; printf("mc_diff");}
-"EG" {return mc_eg; printf("mc_eg");}
-":=" {return mc_aff; printf("mc_aff");}
-"|" {return mc_sep; printf("mc_sep");}
-"+" {return mc_add; printf("mc_add");}
-"*" {return mc_mul; printf("mc_mul");}
-"-" {return mc_diff; printf("mc_diff");}
-"/" {return mc_div; printf("mc_div");}
-"$" {return endinst; printf("endinst");}
-\n {nblignes++; return new_line;}
+"##" {printf("mc_import\t");}
+"PROCESS" {printf("lib_process\t");}
+"LOOP" {printf("lib_loop\t");}
+"ARRAY" {printf("lib_array\t");}
+"PROGRAMME" {printf("mc_start\t");}
+"VAR" {printf("mc_decvar\t");}
+"EXECUT" {printf("mc_execut\t");}
+"IF" {printf("mc_if\t");}
+"ELSE" {printf("mc_else\t");}
+"END_IF" {printf("mc_endif\t");}
+"While" {printf("mc_while\t");}
+"READ" {printf("fonc_entree\t");}
+"WRITE" {printf("fonc_sortie\t");}
+"(" {printf("mc_po\t");}
+")" {printf("mc_pf\t");}
+"{" {printf("mc_ao\t");}
+"}" {printf("mc_af\t");}
+"@" {printf("mc_adresse\t");}
+"SUP" {printf("mc_sup\t");}
+"SUPE" {printf("mc_supe\t");}
+"INF" {printf("mc_inf\t");}
+"INFE" {printf("mc_infe\t");}
+"DIFF" {printf("mc_diff\t");}
+"EG" {printf("mc_eg\t");}
+":=" {printf("mc_aff\t");}
+"|" {printf("mc_sep\t");}
+"+" {printf("mc_add\t");}
+"*" {printf("mc_mul\t");}
+"-" {printf("mc_diff\t");}
+"/" {printf("mc_div\t");}
+"$" {printf("endinst\t");}
+{INTEGER} {printf("INTEGER\t");}
+"INTEGER" {printf("mc_int\t");}
+{FLOAT} {printf("FLOAT\t");}
+"FLOAT" {printf("mc_float\t");}
+{CHAR} {printf("CHAR\t");}
+"CHAR" {printf("mc_char\t");}
+{STRING} {printf("string\t");}
+"STRING" {printf("mc_string\t");}
+"CONST" {printf("mc_const\t");}
+{IDF} {printf("IDF\t");}
+{IDFTAB} {printf("IDFTAB\t");}
+{commentaire} {printf("commentaire\t");}
+{TIO} {printf("mc_io");}
+\n {nblignes++;}
 [ \t] 
-. {printf("erreur dans la ligne %d a l'entite %s",nblignes,yytext); return err;}
+. {printf("erreur dans la ligne %d a l'entite %s",nblignes,yytext);}
