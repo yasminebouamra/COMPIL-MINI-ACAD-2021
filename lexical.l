@@ -1,7 +1,7 @@
 %{
-int nblignes=1;
+	#include "syntaxique.tab.h"
+	int nblignes=1;
 %}
-ALL_CHARS .*^[\*\/]
 SNombre [0-9]
 INTEGER ([0-9]|\-[0-9])*
 FLOAT ({INTEGER}.{SNombre}+)
@@ -12,9 +12,11 @@ STRING \"{CHAR}*\"
 OpCond [SUP|SUPE|EG|DIFF|INF|INFE]
 TailleTab \[{SNombre}*\]
 FIO [$|%|#|&]
-TIO \(\".*\"(\|{IDF})*\)
-commentaire \/\*{ALL_CHARS}\*\/
+TO \(\".*{FIO}\"\|{IDF}\)
+TI \(\".*{FIO}\"\|@{IDF}\)
+commentaire \/\*{STRING}\*\/
 %%
+"Programme" returns mc_pgm;
 "##" {return mc_import; printf("mc_import\t");}
 "PROCESS" {return lib_process; printf("lib_process\t");}
 "LOOP" {return lib_loop; printf("lib_loop\t");}
@@ -28,7 +30,7 @@ commentaire \/\*{ALL_CHARS}\*\/
 "While" {return mc_while; printf("mc_while\t");}
 "READ" {return fonc_entree; printf("fonc_entree\t");}
 "WRITE" {return fonc_sortie; printf("fonc_sortie\t");}
-"(" {return mc_po; printf("mc_po\t");}
+"(" {return mc_po; printf("mc_po\t");} 
 ")" {return mc_pf; printf("mc_pf\t");}
 "{" {return mc_ao; printf("mc_ao\t");}
 "}" {return mc_af; printf("mc_af\t");}
@@ -46,19 +48,22 @@ commentaire \/\*{ALL_CHARS}\*\/
 "-" {return mc_diff; printf("mc_diff\t");}
 "/" {return mc_div; printf("mc_div\t");}
 "$" {return endinst; printf("endinst\t");}
-{INTEGER} {printf("INTEGER\t");}
-"INTEGER" {printf("mc_int\t");}
-{FLOAT} {printf("FLOAT\t");}
-"FLOAT" {printf("mc_float\t");}
-{CHAR} {printf("CHAR\t");}
-"CHAR" {printf("mc_char\t");}
-{STRING} {printf("string\t");}
-"STRING" {printf("mc_string\t");}
-"CONST" {printf("mc_const\t");}
-{IDF} {printf("IDF\t");}
-{IDFTAB} {printf("IDFTAB\t");}
-{commentaire} {printf("commentaire\t");}
-{TIO} {printf("mc_io");}
+"::" {return mc_dp; printf("mc_dp\t");}
+"//" {return mc_ds; printf("mc_ds\t");}
+{INTEGER} {return int;printf("INTEGER\t");}
+"INTEGER" {return mc_int;printf("mc_int\t");}
+{FLOAT} {return float;printf("FLOAT\t");}
+"FLOAT" {return mc_float;printf("mc_float\t");}
+{CHAR} {return char;printf("CHAR\t");}
+"CHAR" {return mc_char;printf("mc_char\t");}
+{STRING} {return string;printf("string\t");}
+"STRING" {return mc_string;printf("mc_string\t");}
+"CONST" {return mc_const;printf("mc_const\t");}
+{IDF} {return mc_idf;printf("IDF\t");}
+{IDFTAB} {return mc_idftab;printf("IDFTAB\t");}
+{commentaire} {return mc_com;printf("commentaire\t");}
+{TI} {return mc_i;printf("mc_i");}
+{TO} {return mc_o;printf("mc_o");}
 \n {nblignes++;}
 [ \t] 
 . {printf("erreur dans la ligne %d a l'entite %s",nblignes,yytext);}
