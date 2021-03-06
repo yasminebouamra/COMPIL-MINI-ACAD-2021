@@ -816,7 +816,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 19 "lexical.l"
-returns mc_pgm;
+{return mc_pgm; printf("mc_pgm");}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
@@ -986,7 +986,7 @@ YY_RULE_SETUP
 case 35:
 YY_RULE_SETUP
 #line 53 "lexical.l"
-{return int;printf("INTEGER\t");}
+{return integer;printf("INTEGER\t");}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
@@ -996,7 +996,7 @@ YY_RULE_SETUP
 case 37:
 YY_RULE_SETUP
 #line 55 "lexical.l"
-{return float;printf("FLOAT\t");}
+{return floa;printf("FLOAT\t");}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
@@ -1006,7 +1006,7 @@ YY_RULE_SETUP
 case 39:
 YY_RULE_SETUP
 #line 57 "lexical.l"
-{return char;printf("CHAR\t");}
+{return chara;printf("CHAR\t");}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
@@ -1016,7 +1016,7 @@ YY_RULE_SETUP
 case 41:
 YY_RULE_SETUP
 #line 59 "lexical.l"
-{return string;printf("string\t");}
+{return str;printf("string\t");}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP

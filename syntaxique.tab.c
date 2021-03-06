@@ -144,10 +144,10 @@ extern unsigned int nblignes;
      mc_pgm = 298,
      mc_dp = 299,
      mc_ds = 300,
-     int = 301,
-     float = 302,
-     string = 303,
-     char = 304
+     integer = 301,
+     floa = 302,
+     str = 303,
+     chara = 304
    };
 #endif
 
@@ -493,7 +493,7 @@ static const char *const yytname[] =
   "mc_diff", "mc_eg", "mc_aff", "mc_sept", "mc_add", "mc_mul", "mc_div",
   "endinst", "mc_int", "mc_float", "mc_char", "mc_string", "mc_const",
   "mc_o", "mc_i", "mc_com", "mc_idf", "mc_idftab", "mc_pgm", "mc_dp",
-  "mc_ds", "int", "float", "string", "char", "$accept", "S", "LISTE_BIB",
+  "mc_ds", "integer", "floa", "str", "chara", "$accept", "S", "LISTE_BIB",
   "BIB", "LIB", "PROGRAMME", "CORPS", "LISTE_DEC", "DEC", "DEC_VAR",
   "DEC_CONST", "CONSTANTE", "NBCONST", "VAR", "TYPE", "LISTEIDF",
   "INSTRUCTIONS", "AFFECTATION", "EXPRESSION", "EXARI", "BOUCLE",
@@ -1676,5 +1676,5 @@ yywrap()
 
 int yyerror(char * msg) 
 {
-printf("erreur syntaxique a la ligne %d.\n",nb_ligne);
+printf("erreur syntaxique a la ligne %d.\n",nblignes);
 }

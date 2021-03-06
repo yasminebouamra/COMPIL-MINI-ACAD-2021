@@ -16,7 +16,7 @@ TO \(\".*{FIO}\"\|{IDF}\)
 TI \(\".*{FIO}\"\|@{IDF}\)
 commentaire \/\*{STRING}\*\/
 %%
-"Programme" returns mc_pgm;
+"Programme" {return mc_pgm; printf("mc_pgm");}
 "##" {return mc_import; printf("mc_import\t");}
 "PROCESS" {return lib_process; printf("lib_process\t");}
 "LOOP" {return lib_loop; printf("lib_loop\t");}
@@ -50,13 +50,13 @@ commentaire \/\*{STRING}\*\/
 "$" {return endinst; printf("endinst\t");}
 "::" {return mc_dp; printf("mc_dp\t");}
 "//" {return mc_ds; printf("mc_ds\t");}
-{INTEGER} {return int;printf("INTEGER\t");}
+{INTEGER} {return integer;printf("INTEGER\t");}
 "INTEGER" {return mc_int;printf("mc_int\t");}
-{FLOAT} {return float;printf("FLOAT\t");}
+{FLOAT} {return floa;printf("FLOAT\t");}
 "FLOAT" {return mc_float;printf("mc_float\t");}
-{CHAR} {return char;printf("CHAR\t");}
+{CHAR} {return chara;printf("CHAR\t");}
 "CHAR" {return mc_char;printf("mc_char\t");}
-{STRING} {return string;printf("string\t");}
+{STRING} {return str;printf("string\t");}
 "STRING" {return mc_string;printf("mc_string\t");}
 "CONST" {return mc_const;printf("mc_const\t");}
 {IDF} {return mc_idf;printf("IDF\t");}

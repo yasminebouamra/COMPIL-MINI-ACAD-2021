@@ -82,10 +82,10 @@
      mc_pgm = 298,
      mc_dp = 299,
      mc_ds = 300,
-     int = 301,
-     float = 302,
-     string = 303,
-     char = 304
+     integer = 301,
+     floa = 302,
+     str = 303,
+     chara = 304
    };
 #endif
 

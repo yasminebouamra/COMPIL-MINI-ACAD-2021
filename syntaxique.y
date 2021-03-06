@@ -1,7 +1,7 @@
 %{
 extern unsigned int nblignes;
 %}
-%token mc_import lib_process lib_loop lib_array mc_start mc_decvar mc_execut mc_if mc_else mc_endif mc_while fonc_entree fonc_sortie mc_po mc_pf mc_ao mc_af mc_adresse mc_sup mc_supe mc_inf mc_infe mc_diff mc_eg mc_aff mc_sept mc_add mc_mul mc_div endinst mc_int mc_float mc_char mc_string mc_const mc_o mc_i mc_com mc_idf mc_idftab mc_pgm mc_dp mc_ds int float string char
+%token mc_import lib_process lib_loop lib_array mc_start mc_decvar mc_execut mc_if mc_else mc_endif mc_while fonc_entree fonc_sortie mc_po mc_pf mc_ao mc_af mc_adresse mc_sup mc_supe mc_inf mc_infe mc_diff mc_eg mc_aff mc_sept mc_add mc_mul mc_div endinst mc_int mc_float mc_char mc_string mc_const mc_o mc_i mc_com mc_idf mc_idftab mc_pgm mc_dp mc_ds integer floa str chara
 %start S
 %%
 S: LISTE_BIB PROGRAMME { printf("Programme Syntaxiquement correct");
@@ -29,8 +29,8 @@ DEC_VAR: mc_decvar VAR;
 DEC_CONST: mc_const CONSTANTE;
 CONSTANTE: TYPE mc_dp LISTEIDF mc_aff NBCONST mc_ds CONSTANTE
 	|TYPE mc_dp LISTEIDF mc_aff NBCONST endinst;
-NBCONST: int
-	| float
+NBCONST: integer
+	| floa
 	;
 VAR: TYPE mc_dp LISTEIDF mc_ds VAR
 	| TYPE mc_dp LISTEIDF endinst
@@ -86,5 +86,5 @@ yywrap()
 
 int yyerror(char * msg) 
 {
-printf("erreur syntaxique a la ligne %d.\n",nb_ligne);
+printf("erreur syntaxique a la ligne %d.\n",nblignes);
 }
